@@ -7,6 +7,9 @@ const lockState = window.mobx.observable({
   wheels: [0, 0, 0, 0]
 })
 
+const equals = (a, b) => JSON.stringify(a) === JSON.stringify(b); // For easy array comparison
+
+
 function changeDialValue (index, incrementBy) {
   // This part is missing some code
   // This function is automatically called when the user clicks on a chevron
@@ -25,6 +28,15 @@ function changeDialValue (index, incrementBy) {
   // call the redirect() function with your name
   // eg: redirect('larry-lobster')
   // the redirect function will only redirect if the lockState is unlocked
+	
+  // the index of wheels is set to the value of (wheels at index)  + incrementBy
+  lockState.wheels[index] = lockState.wheels[index] + incrementBy;
+
+  if(equals(lockState.wheels,SECRET_COMBO)){ // Checks to see if the array wheels is the same as the secret combo
+          lockState.locked = false;
+          redirect('Sean-Dever');
+  }
+
 }
 
 // let our other modules find our functions
